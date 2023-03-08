@@ -8,12 +8,12 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import tech.jiangchen.handler.TimeClientHandler;
+import tech.jiangchen.handler.EchoClientHandler;
 
 public class ClientServer {
     public static void main(String[] args) throws Exception {
-        String host = args[0];
-        int port = Integer.parseInt(args[1]);
+        String host = "127.0.0.1";
+        int port = 8080;
         EventLoopGroup workerGroup = new NioEventLoopGroup();
 
         try {
@@ -24,7 +24,7 @@ public class ClientServer {
             b.handler(new ChannelInitializer<SocketChannel>() {
                 @Override
                 public void initChannel(SocketChannel ch) throws Exception {
-                    ch.pipeline().addLast(new TimeClientHandler());
+                    ch.pipeline().addLast(new EchoClientHandler());
                 }
             });
 
