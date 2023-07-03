@@ -88,18 +88,13 @@ public class WebSocketServer {
 
         log.info("WebSocket Server start succ on:" + serverConfig.port);
 
-        new Thread() {
-
-            @Override
-            public void run() {
-                try {
-                    channelFuture.channel().closeFuture().sync();
-                } catch (Exception e) {
-                    log.error("WebSocket Server start failed!", e);
-                }
+        new Thread(() -> {
+            try {
+                channelFuture.channel().closeFuture().sync();
+            } catch (Exception e) {
+                log.error("WebSocket Server start failed!", e);
             }
-
-        }.start();
+        }).start();
     }
 
 
@@ -139,10 +134,8 @@ public class WebSocketServer {
      */
     public ServerBootstrap newServerBootstrap() {
         if (Epoll.isAvailable() && serverConfig.useEpoll) {
-            EventLoopGroup bossGroup =
-                    new EpollEventLoopGroup(serverConfig.bossThreads, new DefaultThreadFactory("WebSocketBossGroup", true));
-            EventLoopGroup workerGroup =
-                    new EpollEventLoopGroup(serverConfig.workerThreads, new DefaultThreadFactory("WebSocketWorkerGroup", true));
+            EventLoopGroup bossGroup = new EpollEventLoopGroup(serverConfig.bossThreads, new DefaultThreadFactory("WebSocketBossGroup", true));
+            EventLoopGroup workerGroup = new EpollEventLoopGroup(serverConfig.workerThreads, new DefaultThreadFactory("WebSocketWorkerGroup", true));
             return new ServerBootstrap().group(bossGroup, workerGroup).channel(EpollServerSocketChannel.class);
         }
 
