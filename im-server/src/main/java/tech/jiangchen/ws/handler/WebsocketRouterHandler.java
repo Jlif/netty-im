@@ -13,6 +13,7 @@ import jakarta.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import tech.jiangchen.dto.MsgDTO;
 import tech.jiangchen.service.MessageService;
 import tech.jiangchen.utils.EnhancedThreadFactory;
 import tech.jiangchen.vo.MessageVO;
@@ -82,7 +83,7 @@ public class WebsocketRouterHandler extends SimpleChannelInboundHandler<WebSocke
                     long recipientUid = data.getLong("recipientUid");
                     String content = data.getString("content");
                     int msgType = data.getIntValue("msgType");
-                    MessageVO messageContent = messageService.sendNewMsg(senderUid, recipientUid, content, msgType);
+                    MessageVO messageContent = messageService.sendNewMsg(new MsgDTO(senderUid, recipientUid, content, msgType));
                     if (messageContent != null) {
                         JSONObject jsonObject = new JSONObject();
                         jsonObject.put("type", 3);

@@ -25,6 +25,7 @@ import jakarta.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import tech.jiangchen.config.ServerConfig;
 import tech.jiangchen.utils.EnhancedThreadFactory;
 import tech.jiangchen.ws.handler.CloseIdleChannelHandler;
 import tech.jiangchen.ws.handler.WebsocketRouterHandler;

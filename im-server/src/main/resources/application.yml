@@ -1,0 +1,49 @@
+server:
+  port: 8080
+
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/im
+    username: root
+    password: 123456
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    generate-ddl: false
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        use_sql_comments: true
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:db/schema.sql
+      data-locations: classpath:db/data.sql
+websocket:
+  connector:
+    server:
+      port: 8081
+      useEpoll: true
+      useMemPool: true
+      useDirectBuffer: true
+      bossThreads: 1
+      workerThreads: 0
+      userThreads: 50
+      connTimeoutMills: 10000
+      soLinger: 0
+      backlog: 500000
+      reuseAddr: true
+      sendBuff: -1
+      recvBuff: -1
+      readIdleSecond: 0
+      writeIdleSecond: 0
+      allIdleSecond: 360
+      idleTimes: 5
+logging:
+  level:
+    root: info
+    web: info
